@@ -32,12 +32,10 @@
   },
   "scripts": {
     "build-dev": "webpack --mode=development",
-    "build-dev:run": "NODE_ENV=development nodemon dist/index.js",
+    "build-dev:run:legacy": "NODE_ENV=development nodemon dist/index.js",
     "dev": "tsx watch src",
     "dev-experimental": "SWCRC=true node -r @swc-node/register src/index.ts",
     "dev-watch:legacy": "nodemon --inspect src/index.ts",
-    "build-prod": "webpack --mode production",
-    "coverage": "jest --collect-coverage",
-    "test": "jest --watchAll"
+    "build-prod": "webpack --mode production"
   }
 }
