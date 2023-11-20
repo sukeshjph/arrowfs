@@ -1,14 +1,27 @@
-import { useEffect } from 'react';
-import { tableFromIPC } from 'apache-arrow';
+import { useEffect, useState } from 'react';
+import * as Arrow from 'apache-arrow';
 
 
-const Arrow = () => {
-    // const [arrowTable, setArrowTable] = useState();
+const ArrowFile = () => {
+    // const [arrowTable, setArrowTable] = useState<Arrow.Table | null>(null);
+
+    const data = {
+        table: null as any
+    };
 
     useEffect(() => {
         const getArrowData = async () => {
-            const table = await tableFromIPC(fetch('http://localhost:4000/getJSFromArrowTable'));
-            console.table(table);
+            const response = await fetch('http://localhost:4000/getJSFromArrowTable');
+            const reader = await Arrow.Table.readAll(response);
+
+            // await reader.open();
+            // data.table = new Arrow.Table(reader.schema);
+
+            // for await (const recordBatch of reader) {
+            //     data.table = [...data.table, recordBatch];
+            // }
+
+            console.table(reader);
         }
 
         getArrowData();
@@ -21,4 +34,4 @@ const Arrow = () => {
 }
 
 
-export default Arrow;
+export default ArrowFile;
